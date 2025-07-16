@@ -1,5 +1,6 @@
 package com.plcoding.chirp
 
+import com.plcoding.chat.Test
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
