@@ -1,4 +1,4 @@
-package com.plcoding.user.domain.model
+package com.plcoding.chirp.domain.model
 
 import java.util.UUID
 

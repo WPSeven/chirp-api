@@ -1,6 +1,6 @@
-package com.plcoding.user.infra.database.entities
+package com.plcoding.chirp.infra.database.entities
 
-import com.plcoding.user.domain.model.UserId
+import com.plcoding.chirp.domain.model.UserId
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue

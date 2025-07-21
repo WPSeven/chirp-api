@@ -1,4 +1,4 @@
-package com.plcoding.user.domain.model
+package com.plcoding.chirp.domain.model
 
 data class AuthenticatedUser(
     val user: User,
