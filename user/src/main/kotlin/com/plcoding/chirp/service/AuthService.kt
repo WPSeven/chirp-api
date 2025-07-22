@@ -1,4 +1,4 @@
-package com.plcoding.chirp.service.auth
+package com.plcoding.chirp.service
 
 import com.plcoding.chirp.domain.exception.EmailNotVerifiedException
 import com.plcoding.chirp.domain.exception.InvalidCredentialsException

@@ -7,8 +7,8 @@ import com.plcoding.chirp.api.dto.RegisterRequest
 import com.plcoding.chirp.api.dto.UserDto
 import com.plcoding.chirp.api.mappers.toAuthenticatedUserDto
 import com.plcoding.chirp.api.mappers.toUserDto
-import com.plcoding.chirp.service.auth.AuthService
-import com.plcoding.chirp.service.auth.EmailVerificationService
+import com.plcoding.chirp.service.AuthService
+import com.plcoding.chirp.service.EmailVerificationService
 import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping

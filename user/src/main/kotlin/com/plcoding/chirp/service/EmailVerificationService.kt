@@ -1,4 +1,4 @@
-package com.plcoding.chirp.service.auth
+package com.plcoding.chirp.service
 
 import com.plcoding.chirp.domain.exception.InvalidTokenException
 import com.plcoding.chirp.domain.exception.UserNotFoundException
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.Instant
 import java.time.temporal.ChronoUnit
-import java.util.concurrent.TimeUnit
 
 @Service
 class EmailVerificationService(
