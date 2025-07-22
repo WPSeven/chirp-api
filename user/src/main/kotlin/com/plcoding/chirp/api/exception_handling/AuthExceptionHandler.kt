@@ -1,5 +1,6 @@
 package com.plcoding.chirp.api.exception_handling
 
+import com.plcoding.chirp.domain.exception.EmailNotVerifiedException
 import com.plcoding.chirp.domain.exception.InvalidCredentialsException
 import com.plcoding.chirp.domain.exception.InvalidTokenException
 import com.plcoding.chirp.domain.exception.UserAlreadyExistsException
@@ -47,6 +48,15 @@ class AuthExceptionHandler {
         e: InvalidTokenException
     ) = mapOf(
         "code" to "INVALID_TOKEN",
+        "message" to e.message
+    )
+
+    @ExceptionHandler(EmailNotVerifiedException::class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    fun onEmailNotVerified(
+        e: EmailNotVerifiedException
+    ) = mapOf(
+        "code" to "EMAIL_NOT_VERIFIED",
         "message" to e.message
     )
 
