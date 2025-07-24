@@ -1,6 +1,5 @@
 package com.plcoding.chirp
 
-import com.plcoding.chat.Test
 import com.plcoding.chirp.infra.database.entities.UserEntity
 import com.plcoding.chirp.infra.database.repositories.UserRepository
 import jakarta.annotation.PostConstruct
