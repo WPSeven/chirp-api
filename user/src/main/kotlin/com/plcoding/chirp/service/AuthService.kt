@@ -7,7 +7,7 @@ import com.plcoding.chirp.domain.exception.UserAlreadyExistsException
 import com.plcoding.chirp.domain.exception.UserNotFoundException
 import com.plcoding.chirp.domain.model.AuthenticatedUser
 import com.plcoding.chirp.domain.model.User
-import com.plcoding.chirp.domain.model.UserId
+import com.plcoding.chirp.domain.type.UserId
 import com.plcoding.chirp.infra.database.entities.RefreshTokenEntity
 import com.plcoding.chirp.infra.database.entities.UserEntity
 import com.plcoding.chirp.infra.database.mappers.toUser
