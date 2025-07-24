@@ -43,10 +43,10 @@ spring:
   rabbitmq:
     host: seal.lmq.cloudamqp.com
     password: ${RABBITMQ_PASSWORD}
-    username: iaetkiyn
+    username: udnlwpbs
     ssl:
       enabled: true
-    virtual-host: iaetkiyn
+    virtual-host: udnlwpbs
     listener:
       simple:
         acknowledge-mode: auto
