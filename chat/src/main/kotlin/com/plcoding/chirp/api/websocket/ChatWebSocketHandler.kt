@@ -2,6 +2,8 @@ package com.plcoding.chirp.api.websocket
 
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.plcoding.chirp.api.dto.ws.ChatParticipantsChangedDto
+import com.plcoding.chirp.api.dto.ws.DeleteMessageDto
 import com.plcoding.chirp.api.dto.ws.ErrorDto
 import com.plcoding.chirp.api.dto.ws.IncomingWebSocketMessage
 import com.plcoding.chirp.api.dto.ws.IncomingWebSocketMessageType
@@ -9,6 +11,9 @@ import com.plcoding.chirp.api.dto.ws.OutgoingWebSocketMessage
 import com.plcoding.chirp.api.dto.ws.OutgoingWebSocketMessageType
 import com.plcoding.chirp.api.dto.ws.SendMessageDto
 import com.plcoding.chirp.api.mappers.toChatMessageDto
+import com.plcoding.chirp.domain.event.ChatParticipantLeftEvent
+import com.plcoding.chirp.domain.event.ChatParticipantsJoinedEvent
+import com.plcoding.chirp.domain.event.MessageDeletedEvent
 import com.plcoding.chirp.domain.type.ChatId
 import com.plcoding.chirp.domain.type.UserId
 import com.plcoding.chirp.service.ChatMessageService
@@ -17,6 +22,8 @@ import com.plcoding.chirp.service.JwtService
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
+import org.springframework.transaction.event.TransactionPhase
+import org.springframework.transaction.event.TransactionalEventListener
 import org.springframework.web.socket.CloseStatus
 import org.springframework.web.socket.TextMessage
 import org.springframework.web.socket.WebSocketSession
@@ -122,6 +129,84 @@ class ChatWebSocketHandler(
                 )
             )
         }
+    }
+
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    fun onDeleteMessage(event: MessageDeletedEvent) {
+        broadcastToChat(
+            chatId = event.chatId,
+            message = OutgoingWebSocketMessage(
+                type = OutgoingWebSocketMessageType.MESSAGE_DELETED,
+                payload = objectMapper.writeValueAsString(
+                    DeleteMessageDto(
+                        chatId = event.chatId,
+                        messageId = event.messageId
+                    )
+                )
+            )
+        )
+    }
+
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    fun onJoinChat(event: ChatParticipantsJoinedEvent) {
+        connectionLock.write {
+            event.userIds.forEach { userId ->
+                userChatIds.compute(userId) { _, chatIds ->
+                    (chatIds ?: mutableSetOf()).apply {
+                        add(event.chatId)
+                    }
+                }
+
+                userToSessions[userId]?.forEach { sessionId ->
+                    chatToSessions.compute(event.chatId) { _, sessions ->
+                        (sessions ?: mutableSetOf()).apply { add(sessionId) }
+                    }
+                }
+            }
+        }
+
+        broadcastToChat(
+            chatId = event.chatId,
+            message = OutgoingWebSocketMessage(
+                type = OutgoingWebSocketMessageType.CHAT_PARTICIPANTS_CHANGED,
+                payload = objectMapper.writeValueAsString(
+                    ChatParticipantsChangedDto(
+                        chatId = event.chatId
+                    )
+                )
+            )
+        )
+    }
+
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    fun onLeftChat(event: ChatParticipantLeftEvent) {
+        connectionLock.write {
+            userChatIds.compute(event.userId) { _, chatIds ->
+                chatIds
+                    ?.apply { remove(event.chatId) }
+                    ?.takeIf { it.isNotEmpty() }
+            }
+
+            userToSessions[event.userId]?.forEach { sessionId ->
+                chatToSessions.compute(event.chatId) { _, sessions ->
+                    sessions
+                        ?.apply { remove(sessionId) }
+                        ?.takeIf { it.isNotEmpty() }
+                }
+            }
+        }
+
+        broadcastToChat(
+            chatId = event.chatId,
+            message = OutgoingWebSocketMessage(
+                type = OutgoingWebSocketMessageType.CHAT_PARTICIPANTS_CHANGED,
+                payload = objectMapper.writeValueAsString(
+                    ChatParticipantsChangedDto(
+                        chatId = event.chatId
+                    )
+                )
+            )
+        )
     }
 
     private fun sendError(
