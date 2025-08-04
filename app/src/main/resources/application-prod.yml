@@ -1,0 +1,22 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  mail:
+    host: smtp.mailgun.org
+    username: postmaster@sandbox52dc7dc8bb034abca4a367ef5329fb58.mailgun.org
+
+jwt:
+  expiration-minutes: 15
+
+nginx:
+  require-proxy: true
+
+chirp:
+  email:
+    url: "https://chirp.pl-coding.com"
+  rate-limit:
+    ip:
+      apply-limit: true
+  web-socket:
+    allowed-origin: "https://chirp.pl-coding.com"

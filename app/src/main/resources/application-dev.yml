@@ -1,0 +1,26 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  mail:
+    host: smtp.mailgun.org
+    username: postmaster@sandbox52dc7dc8bb034abca4a367ef5329fb58.mailgun.org
+
+jwt:
+  expiration-minutes: 1000
+
+nginx:
+  require-proxy: false
+
+chirp:
+  email:
+    url: "http://localhost:8080"
+  rate-limit:
+    ip:
+      apply-limit: false
+  web-socket:
+    allowed-origin: "http://localhost:8080"
+
+logging:
+  level:
+    com.plcoding.chirp: DEBUG
