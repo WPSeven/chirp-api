@@ -1,3 +1,4 @@
+
 spring:
   application:
     name: chirp
@@ -95,3 +96,6 @@ supabase:
 
 firebase:
   credentials-path: "classpath:firebase-credentials/chirp-firebase-adminsdk.json"
+
+server:
+  port: 8095
