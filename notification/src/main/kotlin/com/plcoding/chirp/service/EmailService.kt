@@ -36,11 +36,23 @@ class EmailService(
             .build()
             .toUriString()
 
+        // Same URL, but uses chirp:// scheme which allows easier testing of deep links
+        // without having to verify them with Apple/Google
+        val devVerificationUrl = baseUrl.substringAfter("://").let { urlWithoutScheme ->
+            UriComponentsBuilder
+                .fromUriString("$urlWithoutScheme/api/auth/verify")
+                .scheme("chirp")
+                .queryParam("token", token)
+                .build()
+                .toUriString()
+        }
+
         val htmlContent = templateService.processTemplate(
             templateName = "emails/account-verification",
             variables = mapOf(
                 "username" to username,
-                "verificationUrl" to verificationUrl
+                "verificationUrl" to verificationUrl,
+                "devVerificationUrl" to devVerificationUrl
             )
         )
 
@@ -66,11 +78,23 @@ class EmailService(
             .build()
             .toUriString()
 
+        // Same URL, but uses chirp:// scheme which allows easier testing of deep links
+        // without having to verify them with Apple/Google
+        val devUrl = baseUrl.substringAfter("://").let { urlWithoutScheme ->
+            UriComponentsBuilder
+                .fromUriString("$urlWithoutScheme/api/auth/reset-password")
+                .scheme("chirp")
+                .queryParam("token", token)
+                .build()
+                .toUriString()
+        }
+
         val htmlContent = templateService.processTemplate(
             templateName = "emails/reset-password",
             variables = mapOf(
                 "username" to username,
                 "resetPasswordUrl" to resetPasswordUrl,
+                "devResetPasswordUrl" to devUrl,
                 "expiresInMinutes" to expiresIn.toMinutes()
             )
         )
