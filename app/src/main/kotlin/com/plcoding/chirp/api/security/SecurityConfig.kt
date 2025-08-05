@@ -1,5 +1,6 @@
 package com.plcoding.chirp.api.security
 
+import com.plcoding.chirp.api.config.ApiKeyAuthFilter
 import com.plcoding.chirp.api.config.JwtAuthFilter
 import jakarta.servlet.DispatcherType
 import org.springframework.context.annotation.Bean
@@ -15,7 +16,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 class SecurityConfig {
 
     @Bean
-    fun filterChain(httpSecurity: HttpSecurity, jwtAuthFilter: JwtAuthFilter): SecurityFilterChain {
+    fun filterChain(httpSecurity: HttpSecurity, jwtAuthFilter: JwtAuthFilter,
+                    apiKeyAuthFilter: ApiKeyAuthFilter
+    ): SecurityFilterChain {
         return httpSecurity
             .csrf { it.disable() }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
@@ -33,7 +36,8 @@ class SecurityConfig {
                     .anyRequest()
                     .authenticated()
             }
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter::class.java)
+            .addFilterBefore(apiKeyAuthFilter, UsernamePasswordAuthenticationFilter::class.java)
+            .addFilterAfter(jwtAuthFilter, ApiKeyAuthFilter::class.java)
             .exceptionHandling { configurer ->
                 configurer
                     .authenticationEntryPoint(HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
