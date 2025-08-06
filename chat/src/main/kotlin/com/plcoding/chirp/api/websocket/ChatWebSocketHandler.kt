@@ -12,6 +12,7 @@ import com.plcoding.chirp.api.dto.ws.OutgoingWebSocketMessageType
 import com.plcoding.chirp.api.dto.ws.ProfilePictureUpdateDto
 import com.plcoding.chirp.api.dto.ws.SendMessageDto
 import com.plcoding.chirp.api.mappers.toChatMessageDto
+import com.plcoding.chirp.domain.event.ChatCreatedEvent
 import com.plcoding.chirp.domain.event.ChatParticipantLeftEvent
 import com.plcoding.chirp.domain.event.ChatParticipantsJoinedEvent
 import com.plcoding.chirp.domain.event.MessageDeletedEvent
@@ -336,6 +337,25 @@ class ChatWebSocketHandler(
                 }
             } catch(e: Exception) {
                 logger.error("Could not send profile picture update to session $sessionId", e)
+            }
+        }
+    }
+
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    fun onChatCreated(event: ChatCreatedEvent) {
+        connectionLock.write {
+            event.participantIds.forEach { userId ->
+                userChatIds.compute(userId) { _, chatIds ->
+                    (chatIds ?: mutableSetOf()).apply {
+                        add(event.chatId)
+                    }
+                }
+
+                userToSessions[userId]?.forEach { sessionId ->
+                    chatToSessions.compute(event.chatId) { _, sessions ->
+                        (sessions ?: mutableSetOf()).apply { add(sessionId) }
+                    }
+                }
             }
         }
     }

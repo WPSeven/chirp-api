@@ -11,7 +11,7 @@ jwt:
   expiration-minutes: 15
 
 nginx:
-  require-proxy: true
+  require-proxy: false
 
 chirp:
   email:
@@ -21,3 +21,7 @@ chirp:
       apply-limit: true
   web-socket:
     allowed-origin: "https://chirp.pl-coding.com"
+
+logging:
+  level:
+    com.plcoding.chirp: DEBUG

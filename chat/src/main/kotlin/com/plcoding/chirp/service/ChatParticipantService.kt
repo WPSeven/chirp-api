@@ -5,6 +5,7 @@ import com.plcoding.chirp.infra.database.mappers.toChatParticipant
 import com.plcoding.chirp.infra.database.mappers.toChatParticipantEntity
 import com.plcoding.chirp.infra.database.repositories.ChatParticipantRepository
 import com.plcoding.chirp.domain.type.UserId
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
