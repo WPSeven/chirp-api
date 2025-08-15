@@ -22,6 +22,7 @@ import org.springframework.cache.annotation.CacheEvict
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.Instant
@@ -33,7 +34,8 @@ class ChatMessageService(
     private val chatMessageRepository: ChatMessageRepository,
     private val chatParticipantRepository: ChatParticipantRepository,
     private val applicationEventPublisher: ApplicationEventPublisher,
-    private val eventPublisher: EventPublisher
+    private val eventPublisher: EventPublisher,
+    private val messageCacheManager: MessageCacheManager
 ) {
 
     @Transactional
@@ -96,9 +98,14 @@ class ChatMessageService(
             )
         )
 
-        evictMessagesCache(message.chatId)
+        messageCacheManager.evictMessagesCache(message.chatId)
     }
 
+
+}
+
+@Component
+class MessageCacheManager {
     @CacheEvict(
         value = ["messages"],
         key = "#chatId",
