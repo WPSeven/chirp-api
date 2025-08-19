@@ -82,7 +82,6 @@ class FirebasePushNotificationService(
                                 AndroidConfig.builder()
                                     .setPriority(AndroidConfig.Priority.HIGH)
                                     .setCollapseKey(notification.chatId.toString())
-                                    .setRestrictedPackageName("com.plcoding.chirp")
                                     .build()
                             )
                         }
