@@ -81,4 +81,5 @@ Check out the mobile implementation: [Chirp - Kotlin Multiplatform Project](http
 <div align="center">
   <img width="2742" height="1508" alt="spring-boot-transparent-padded" src="https://github.com/user-attachments/assets/d62b23db-a51a-42f1-aa67-dd125e99ec0e" />
 </div>
+
 Learn more at [pl-coding.com/kotlin-spring-boot](https://pl-coding.com/kotlin-spring-boot?utm_source=github&utm_medium=readme&utm_campaign=default&cmc_strip=utm)
