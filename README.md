@@ -2,14 +2,24 @@
 
 A real-time messaging API backend built with Kotlin and Spring Boot, part of the [**Building Industry-Level Kotlin Backends With Spring Boot**](https://pl-coding.com/kotlin-spring-boot?utm_source=github&utm_medium=readme&utm_campaign=default&cmc_strip=utm) course.
 
-<div align="center">
-  <img width="1000" height="1508" alt="spring-boot-transparent" src="https://github.com/user-attachments/assets/be3f3325-4d46-46ad-ab7d-f576fa81c586" />
-</div>
-
 ### System Architecture
 <div align="center">
   <img width="800" alt="chirp-system-design" src="https://github.com/user-attachments/assets/27fec017-281c-424c-a2a5-f3060f783c8d" />
 </div>
+
+## KMP/CMP App
+Check out the mobile implementation: [Chirp - Kotlin Multiplatform Project](https://github.com/philipplackner/Chirp/)
+
+### Mobile View
+<div align="center">
+  <img width="800" alt="mobile-screens" src="https://github.com/user-attachments/assets/55ec2600-9ecb-4d5d-a8ad-1650dfe2dc17" />
+</div>
+
+### Desktop, Foldable & Tablet View
+<div align="center">
+  <img width="900" alt="tablet-chat" src="https://github.com/user-attachments/assets/df54ebfd-e7d7-4f14-9841-2abe75c630b3" />
+</div>
+
 
 ## What's covered?
 
@@ -26,15 +36,49 @@ A real-time messaging API backend built with Kotlin and Spring Boot, part of the
 
 ## Technology Stack
 
-- Kotlin & Spring Boot 3
-- PostgreSQL & Spring Data JPA
-- Redis (Caching)
-- RabbitMQ (Message Queue)
-- WebSocket (Real-time)
-- Firebase Cloud Messaging
-- Supabase Storage
-- JWT & Spring Security
+<table>
+  <tr>
+    <td align="center" width="120" height="120">
+      <img src="https://github.com/user-attachments/assets/59036eab-e126-41f7-bf3d-29185d67f3b1" width="60" height="60" alt="Kotlin" />
+      <br><strong>Kotlin</strong>
+    </td>
+    <td align="center" width="120" height="120">
+      <img src="https://github.com/user-attachments/assets/51cc367e-bdbd-4018-ba9f-ed71841b8cf0" width="60" height="60" alt="Spring Boot" />
+      <br><strong>Spring Boot</strong><br>3.x
+    </td>
+    <td align="center" width="120" height="120">
+      <img src="https://github.com/user-attachments/assets/62c533f1-2bad-4e13-b781-b5439011e6c0" width="60" height="60" alt="PostgreSQL" />
+      <br><strong>PostgreSQL</strong><br>Spring Data JPA
+    </td>
+    <td align="center" width="120" height="120">
+      <img src="https://github.com/user-attachments/assets/e063b515-f336-487f-9626-7e4e5241653f" width="60" height="60" alt="Redis" />
+      <br><strong>Redis</strong><br>Caching
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="120" height="120">
+      <img src="https://github.com/user-attachments/assets/37087bf2-713b-44f7-bf24-08b417837340" width="60" height="60" alt="RabbitMQ" />
+      <br><strong>RabbitMQ</strong><br>Message Queue
+    </td>
+    <td align="center" width="120" height="120">
+      <img src="https://github.com/user-attachments/assets/d5889ebc-6de5-46ca-af06-9ec813af594f" width="60" height="60" alt="Firebase" />
+      <br><strong>Firebase</strong><br>Cloud Messaging
+    </td>
+    <td align="center" width="120" height="120">
+      <img src="https://github.com/user-attachments/assets/bbcc753d-b6b5-4462-98ec-3726ba12abce" width="60" height="60" alt="Supabase" />
+      <br><strong>Supabase</strong><br>Backend Services
+    </td>
+    <td align="center" width="120" height="120">
+      <!-- Empty cell for alignment -->
+    </td>
+  </tr>
+</table>
+
+
 
 ---
-
+## Learn to Build This App
+<div align="center">
+  <img width="2742" height="1508" alt="spring-boot-transparent-padded" src="https://github.com/user-attachments/assets/d62b23db-a51a-42f1-aa67-dd125e99ec0e" />
+</div>
 Learn more at [pl-coding.com/kotlin-spring-boot](https://pl-coding.com/kotlin-spring-boot?utm_source=github&utm_medium=readme&utm_campaign=default&cmc_strip=utm)
