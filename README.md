@@ -5,6 +5,7 @@ A real-time messaging API backend built with Kotlin and Spring Boot, part of the
 ### System Architecture
 <div align="center">
   <img width="800" alt="chirp-system-design" src="https://github.com/user-attachments/assets/27fec017-281c-424c-a2a5-f3060f783c8d" />
+  <img width="2368" height="1776" alt="chirp-architecture" src="https://github.com/user-attachments/assets/112bdc07-12c8-4dba-a602-09f2c76d7b42" />
 </div>
 
 ## KMP/CMP App
